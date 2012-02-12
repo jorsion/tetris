@@ -1,13 +1,17 @@
 #ifndef TETRIS_SHAPE_H
 #define TETRIS_SHAPE_H
 
-typedef struct _point
+typedef struct _Point Point;
+
+typedef struct _Shape Shape;
+
+struct _Point
 {
 	int x;
 	int y;
-} point;
+};
 
-enum SHAPE_TYPE
+enum ShapeType
 {
 	NO_SHAPE = 0,
 	Z_SHAPE,
@@ -19,28 +23,30 @@ enum SHAPE_TYPE
 	T_SHAPE
 };
 
-typedef struct _shape
+struct _Shape
 {
 	SHAPE_TYPE type;
-	point coordinates[4];
-} shape;
+	Point coords[4];
+};
 
-shape * shape_new();
+Shape * shape_new();
 
-void shape_set_type(shape *shp, SHAPE_TYPE type);
+void shape_set_type(Shape *shp, ShapeType type);
 
-void shape_set_coordinate(shape *shp, point pt, int index);
+void shape_set_coordinate(Shape *shp, Point pt, int index);
 
-int shape_max_x(shape *shp);
+int shape_max_x(Shape *shp);
 
-int shape_max_y(shape *shp);
+int shape_max_y(Shape *shp);
 
-int shape_min_x(shape *shp);
+int shape_min_x(Shape *shp);
 
-int shape_min_y(shape *shp);
+int shape_min_y(Shape *shp);
 
-int shape_rotate_left(shape *shp);
+void shape_rotate_left(Shape *shp);
 
-int shape_rotate_right(shape *shp);
+void shape_rotate_right(Shape *shp);
+
+Shape *shape_random_new();
 
 #endif
