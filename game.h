@@ -22,7 +22,7 @@ struct _game
 	bool isStarted;
 	bool isPaused;
 	bool isFallingFinished;
-	ShapeType board[WIDTH * HEIGHT];
+	ShapeType boards[WIDTH * HEIGHT];
 };
 
 Game* game_new();
@@ -40,5 +40,13 @@ void game_move_shape(Game *game, const Shape &shp, int newX, int newY);
 void game_draw_square(Game *game, int x, int y, ShapeType type);
 
 void game_remove_lines(Game *game);
+
+ShapeType game_shape_at(int x, int y);
+
+void game_set_current_position(Game *game, int x, int y);
+
+bool game_move_current_shape(Game *game, int x, int y);
+
+void game_draw_square(int x, int y,ShapeType type);
 
 #endif

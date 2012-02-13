@@ -35,6 +35,10 @@ void shape_set_type(Shape *shp, ShapeType type);
 
 void shape_set_coordinate(Shape *shp, Point pt, int index);
 
+int shape_get_x_coordinate(Shape *shp, int index);
+
+int shape_get_y_coordinate(Shape *shp, int index);
+
 int shape_max_x(Shape *shp);
 
 int shape_max_y(Shape *shp);

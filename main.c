@@ -6,6 +6,8 @@
 #include "shape.h"
 #include "game.h"
 
+Game *game;
+
 static gboolean on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer data)
 {
 	switch(event->keyval)
@@ -51,6 +53,7 @@ int main(int argc, char **argv)
 	g_signal_connect(drawArea, "key-press-event", G_CALLBACK(on_key_press),NULL);
 	gtk_widget_show_all(window);
 	gtk_main();
+
 	
 	return 0;
 }

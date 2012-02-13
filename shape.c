@@ -23,6 +23,16 @@ void shape_set_coordinate(Shape *shp, Point pt, int index)
 	shp->coords[index] = pt;
 }
 
+int shape_get_x_coordinate(Shape *shp, int index)
+{
+	return shp->coords[i].x;
+}
+
+int shape_get_y_coordinate(Shape *shp, int index)
+{
+	return shp->coords[i].y;
+}
+
 int shape_max_x(Shape *shp)
 {
 	int m = shp->coords[0].x;
