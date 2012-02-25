@@ -1,2 +1,5 @@
+PROJECT(TETRIS)
+ADD_SUBDIRECTORY(src bin)
+
 
 
