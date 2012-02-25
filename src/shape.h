@@ -33,6 +33,8 @@ Shape * shape_new();
 
 void shape_set_type(Shape *shp, ShapeType type);
 
+void shape_set_random_type(Shape *shp);
+
 void shape_set_coordinate(Shape *shp, Point pt, int index);
 
 int shape_get_x_coordinate(Shape *shp, int index);

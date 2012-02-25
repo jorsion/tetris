@@ -6,6 +6,11 @@
 
 enum
 {
+	SHAPE_WIDTH = 10;
+};
+
+enum
+{
 	WIDTH = 10,
 	HEIGHT = 22
 };
@@ -37,16 +42,36 @@ void game_clear(Game *game);
 
 void game_move_shape(Game *game, const Shape &shp, int newX, int newY);
 
-void game_draw_square(Game *game, int x, int y, ShapeType type);
-
 void game_remove_lines(Game *game);
 
-ShapeType game_shape_at(int x, int y);
+ShapeType game_get_shape_at(int x, int y);
+
+void game_set_shape_at(Game *game, int x, int y, ShapeType type);
 
 void game_set_current_position(Game *game, int x, int y);
 
-bool game_move_current_shape(Game *game, int x, int y);
+bool game_has_space_at(Game *game, int x, int y);
+
+bool game_try_move(Game *game, int x, int y);
+
+bool game_move_left(Game *game);
+
+bool game_move_right(Game *game);
+
+bool game_rotate_left(Game *game);
+
+bool game_rotate_right(Game *game);
 
 void game_draw_square(int x, int y,ShapeType type);
+
+void game_increment_score(Game *game);
+
+void game_drop_piece(Game *game);
+
+void game_drop_to_bottom(Game *game);
+
+void game_one_line_down(Game *game);
+
+void game_refresh(Game *game);
 
 #endif

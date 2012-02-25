@@ -1,5 +1,33 @@
 #include "shape.h"
 
+static int coordsTable[8][4][2] =
+{
+	{	
+		{0, 0}, {0, 0}, {0, 0}, {0, 0}
+	},
+	{
+		{0, -1}, {0, 0}, {-1, 0}, {-1, 1}
+	},
+	{
+		{0, -1}, {0, 0}, {1, 0}, {1, 1}
+	},
+	{
+		{0, -1}, {0, 0}, {0, 1}, {0, 2}
+	},
+	{
+		{-1, 0}, {0, 0}, {1, 0}, {0, 1}
+	},
+	{
+		{0, 0}, {1, 0}, {0, 1}, {1, 1}
+	},
+	{	
+		{-1, -1}, {0, -1}, {0, 0}, {0, 1}
+	},
+	{
+		{1, -1}, {0, -1}, {0, 0}, {0, 1}
+	}
+}
+
 Shape* shape_new()
 {
 	Shape* shp;
@@ -12,7 +40,25 @@ void shape_set_type(Shape * shp, ShapeType type)
 	assert(shp);
 	assert(type);
 	assert(type >= NO_SHAPE && type <= T_SHAPE);
+
+	int i;
+	for(i = 0; i < 4; i++)
+	{
+		Point pt;
+		pt.x = coordsTable[type][i][0];
+		pt.y = coordsTable[type][i][1];
+		shape_set_coordinate(shp, pt, i);
+	}
+
 	shp->type =  type;
+}
+
+void shape_set_random_type(Shape *shp)
+{
+	assert(shp);
+
+	int t = rand() % 7 + 1;
+	shape_set_type(shp, ShapeType(t));
 }
 
 void shape_set_coordinate(Shape *shp, Point pt, int index)
@@ -36,7 +82,8 @@ int shape_get_y_coordinate(Shape *shp, int index)
 int shape_max_x(Shape *shp)
 {
 	int m = shp->coords[0].x;
-	for(int i = 0; i < 4; i++)	
+	int i;
+	for(i = 0; i < 4; i++)	
 	{
 		m = max(m, shp->coords[i].x);
 	}
@@ -46,7 +93,8 @@ int shape_max_x(Shape *shp)
 int shape_max_y(Shape *shp)
 {
 	int m = shp->coords[0].y;
-	for(int i = 0; i < 4; i++)
+	int i;
+	for(i = 0; i < 4; i++)
 	{
 		m = max(m, shp->coords[i].y);
 	}
@@ -56,7 +104,8 @@ int shape_max_y(Shape *shp)
 int shape_min_x(Shape *shp)
 {
 	int m = shp->coords[0].x;
-	for(int i = 0; i < 4; i++)
+	int i;
+	for(i = 0; i < 4; i++)
 	{
 		m = min(m, shp->coords[i].x);
 	}
@@ -66,7 +115,8 @@ int shape_min_x(Shape *shp)
 int shape_min_y(Shape *shp)
 {
 	int m = shp->coords[0].y;
-	for(int i = 0; i < 4; i++)
+	int i;
+	for(i = 0; i < 4; i++)
 	{
 		m = min(m, shp->coords[i].y);
 	}
@@ -87,7 +137,8 @@ void shape_rotate_left(shape *shp)
 {
 	if(shp->type == SQUARE_SHP)
 		return;
-	for(int i = 0; i < 4; i++)
+	int i;
+	for(i = 0; i < 4; i++)
 	{
 		int x = shp->coords[i].x;
 		int y = shp->coords[i].y;
@@ -100,8 +151,9 @@ void shape_rotate_right(shape *shp)
 {
 	if(shp->type == SQUARE_SHP)
 		return;
-	
-	for(int i = 0; i < 4; i++)
+
+	int i;	
+	for(i = 0; i < 4; i++)
 	{
 		int x = shp->coords[i].x;
 		int y = shp->coords[i].y;
