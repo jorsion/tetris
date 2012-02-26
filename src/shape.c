@@ -1,6 +1,7 @@
+#include <assert.h>
 #include "shape.h"
 
-static int coordsTable[8][4][2] =
+int coordsTable[8][4][2] =
 {
 	{	
 		{0, 0}, {0, 0}, {0, 0}, {0, 0}
@@ -24,21 +25,21 @@ static int coordsTable[8][4][2] =
 		{-1, -1}, {0, -1}, {0, 0}, {0, 1}
 	},
 	{
-		{1, -1}, {0, -1}, {0, 0}, {0, 1}
+		{10, -10}, {0, -10}, {0, 0}, {0, 10}
 	}
-}
+};
 
 Shape* shape_new()
 {
 	Shape* shp;
 	shp = (Shape*)malloc(sizeof(Shape));
+	shape_set_random_type(shp);
 	return shp;
 }
 
 void shape_set_type(Shape * shp, ShapeType type)
 {
 	assert(shp);
-	assert(type);
 	assert(type >= NO_SHAPE && type <= T_SHAPE);
 
 	int i;
@@ -58,25 +59,25 @@ void shape_set_random_type(Shape *shp)
 	assert(shp);
 
 	int t = rand() % 7 + 1;
-	shape_set_type(shp, ShapeType(t));
+	shape_set_type(shp, t);
 }
 
 void shape_set_coordinate(Shape *shp, Point pt, int index)
 {
 	assert(shp);
-	assert(pt);
+//	assert(pt);
 	assert(index >= 0 && index <=3);
 	shp->coords[index] = pt;
 }
 
 int shape_get_x_coordinate(Shape *shp, int index)
 {
-	return shp->coords[i].x;
+	return shp->coords[index].x;
 }
 
 int shape_get_y_coordinate(Shape *shp, int index)
 {
-	return shp->coords[i].y;
+	return shp->coords[index].y;
 }
 
 int shape_max_x(Shape *shp)
@@ -128,14 +129,14 @@ Shape* shape_random_new()
 	Shape * shape;
 	shape = shape_new();
 	int type = rand() % 7 +1;
-	shape_set_type(shape, ShapeType(type));
+	shape_set_type(shape, type);
 	
 	return shape;
 }
 
-void shape_rotate_left(shape *shp)
+void shape_rotate_left(Shape *shp)
 {
-	if(shp->type == SQUARE_SHP)
+	if(shp->type == SQUARE_SHAPE)
 		return;
 	int i;
 	for(i = 0; i < 4; i++)
@@ -147,9 +148,9 @@ void shape_rotate_left(shape *shp)
 	}
 }
 
-void shape_rotate_right(shape *shp)
+void shape_rotate_right(Shape *shp)
 {
-	if(shp->type == SQUARE_SHP)
+	if(shp->type == SQUARE_SHAPE)
 		return;
 
 	int i;	

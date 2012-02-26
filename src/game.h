@@ -2,11 +2,12 @@
 #define TETRIS_BOARD_H
 
 #include <gtk/gtk.h>
+#include <stdbool.h>
 #include "shape.h"
 
 enum
 {
-	SHAPE_WIDTH = 10;
+	SHAPE_WIDTH = 10
 };
 
 enum
@@ -40,11 +41,9 @@ void game_new_piece(Game *game);
 
 void game_clear(Game *game);
 
-void game_move_shape(Game *game, const Shape &shp, int newX, int newY);
-
 void game_remove_lines(Game *game);
 
-ShapeType game_get_shape_at(int x, int y);
+ShapeType game_get_shape_at(Game *game, int x, int y);
 
 void game_set_shape_at(Game *game, int x, int y, ShapeType type);
 
@@ -62,7 +61,9 @@ bool game_rotate_left(Game *game);
 
 bool game_rotate_right(Game *game);
 
-void game_draw_square(int x, int y,ShapeType type);
+void game_draw_square(GtkWidget *widget, int x, int y,ShapeType type);
+
+void game_draw(Game * game);
 
 void game_increment_score(Game *game);
 

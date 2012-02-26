@@ -5,13 +5,18 @@ typedef struct _Point Point;
 
 typedef struct _Shape Shape;
 
+typedef enum _ShapeType ShapeType;
+
+#define max(a,b) ( (a) > (b) ? (a) : (b) )
+#define min(a,b) ( (a) < (b) ? (a) : (b) )
+
 struct _Point
 {
 	int x;
 	int y;
 };
 
-enum ShapeType
+enum _ShapeType
 {
 	NO_SHAPE = 0,
 	Z_SHAPE,
@@ -25,7 +30,7 @@ enum ShapeType
 
 struct _Shape
 {
-	SHAPE_TYPE type;
+	ShapeType type;
 	Point coords[4];
 };
 
