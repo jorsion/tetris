@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <stdio.h>
 #include "shape.h"
 
 int coordsTable[8][4][2] =
@@ -25,7 +26,7 @@ int coordsTable[8][4][2] =
 		{-1, -1}, {0, -1}, {0, 0}, {0, 1}
 	},
 	{
-		{10, -10}, {0, -10}, {0, 0}, {0, 10}
+		{1, -1}, {0, -1}, {0, 0}, {0, 1}
 	}
 };
 
@@ -40,7 +41,7 @@ Shape* shape_new()
 void shape_set_type(Shape * shp, ShapeType type)
 {
 	assert(shp);
-	assert(type >= NO_SHAPE && type <= T_SHAPE);
+	assert(type >= NO_SHAPE && type <= MIRROR_L_SHAPE);
 
 	int i;
 	for(i = 0; i < 4; i++)
@@ -65,7 +66,6 @@ void shape_set_random_type(Shape *shp)
 void shape_set_coordinate(Shape *shp, Point pt, int index)
 {
 	assert(shp);
-//	assert(pt);
 	assert(index >= 0 && index <=3);
 	shp->coords[index] = pt;
 }
@@ -152,6 +152,7 @@ void shape_rotate_right(Shape *shp)
 {
 	if(shp->type == SQUARE_SHAPE)
 		return;
+
 
 	int i;	
 	for(i = 0; i < 4; i++)

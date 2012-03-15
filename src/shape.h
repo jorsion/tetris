@@ -1,6 +1,8 @@
 #ifndef TETRIS_SHAPE_H
 #define TETRIS_SHAPE_H
 
+#include <stdlib.h>
+
 typedef struct _Point Point;
 
 typedef struct _Shape Shape;
@@ -21,11 +23,11 @@ enum _ShapeType
 	NO_SHAPE = 0,
 	Z_SHAPE,
 	S_SHAPE,
-	L_SHAPE,
-	MIRROR_L_SHAPE,
 	LINE_SHAPE,
+	T_SHAPE,
 	SQUARE_SHAPE,
-	T_SHAPE
+	L_SHAPE,
+	MIRROR_L_SHAPE
 };
 
 struct _Shape
