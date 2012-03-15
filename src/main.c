@@ -10,7 +10,7 @@
 static gboolean on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer data)
 {
 	if(data == NULL)
-		return;
+		return FALSE;
 	Game* game= (Game*)data;
 	switch(event->keyval)
 	{
@@ -29,45 +29,41 @@ static gboolean on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer dat
 		case GDK_space:
 			game_drop_to_bottom(game);
 			break;
+		case GDK_KEY_R:
+		case GDK_KEY_r:
+			game_restart(game);
+			break;
 	}
+	game_refresh(game);
 
-	return FALSE;
+	return TRUE;
 }
 
 static gboolean on_timer(Game *game)
 {
-	printf("timer timer\n");
 	if(game == NULL)
 		return;
-	printf("game-game%d\n",game->isStarted);
 	if(!game->isStarted)
 		return;
-	printf("start-start\n");
 	if(game->isPaused)
 		return;
-	printf("timer-timer-timer\n");
 
 	if(game->isFallingFinished)
 	{
 		game->isFallingFinished = false;
 		game_new_piece(game);
-		printf("new new \n");
 	}
 	else
 	{
 		game_one_line_down(game);
-		printf("down down \n");
 	}
 	
-//	gtk_widget_queue_draw(game->window);
 	game_refresh(game);
 	return true;
 }
 
 static gboolean on_expose(GtkWidget *widget, GdkEventKey *event, gpointer data)
 {
-//	return game;
-	printf("widget width:%d,height:%d\n",widget->allocation.width,widget->allocation.height);
 	game_draw((Game*)data);
 	return true;
 }
@@ -81,7 +77,7 @@ int main(int argc, char **argv)
 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title(GTK_WINDOW(window), "Tetris");
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-	gtk_window_set_default_size(GTK_WINDOW(window),100, 220);
+	gtk_window_set_default_size(GTK_WINDOW(window),WIDTH * SHAPE_WIDTH, HEIGHT * SHAPE_WIDTH);
 
 	drawArea = gtk_drawing_area_new();
 	gtk_container_add(GTK_CONTAINER(window), drawArea);
@@ -92,12 +88,11 @@ int main(int argc, char **argv)
 	game->window = drawArea;
 	game_start(game);
 	
-	printf("width:%d,height:%d\n",window->allocation.width, window->allocation.height);
 
 	g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
 	g_signal_connect(drawArea, "expose-event", G_CALLBACK(on_expose),game);
-	g_signal_connect(drawArea, "key-press-event", G_CALLBACK(on_key_press),NULL);
-	g_timeout_add(500, (GSourceFunc)on_timer, (gpointer)game);
+	g_signal_connect(drawArea, "key-press-event", G_CALLBACK(on_key_press),game);
+	g_timeout_add(200, (GSourceFunc)on_timer, (gpointer)game);
 	
 	gtk_widget_show_all(window);
 	gtk_main();
