@@ -5,6 +5,8 @@
 #include <stdbool.h>
 #include "shape.h"
 
+//#define ABS(a) ((a) >= 0 ? (a) : -(a))
+
 enum
 {
 	SHAPE_WIDTH = 10
@@ -34,6 +36,8 @@ struct _game
 Game* game_new();
 
 void game_start(Game *game);
+
+void game_restart(Game *game);
 
 void game_pause(Game *game);
 
